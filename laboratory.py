@@ -3,7 +3,16 @@ from argparse import ArgumentParser
 from sys import stderr
 
 
+# Variable to store the results when the user make tests
+local_results = []
+
+def __other_print(value):
+	if type(value) != tuple:
+		value = tuple(value)
+	local_results.append(value)
+
 def main(args=None):
+	local_args = False
 	if not args:
 		parser = ArgumentParser()
 		parser.add_argument(
@@ -12,6 +21,12 @@ def main(args=None):
 		parser.add_argument(
 			'-a', help='You can use "help" here to check how a option works', dest='ARG', default=None)
 		args = vars(parser.parse_args())
+		print_func = print
+		print_error = stderr.write
+	else:
+		print_func = __other_print
+		print_error = lambda value: local_results.append(value)
+		local_args = True
 	file = open(args['FILE'])
 	lines = file.readlines()
 	file.close()
@@ -28,15 +43,18 @@ def main(args=None):
 		try:
 			if type(results) == str:
 				raise TypeError
-			for result in results:
-				print(result)
+			if not local_args:
+				for result in results:
+					print_func(result)
+			else:
+				print_func(results)
 		except TypeError:
-			print(results)
+			print_func(results)
 	except Exception as e:
 		if type(e) == TypeError:
-			stderr.write(f"\"{args['OPTION']}\" is not a valid option\n")
+			print_error("\033[1;31m" + f"\"{args['OPTION']}\" is not a valid option\n" + "\033[0;0m")
 		elif type(e) == KeyError:
-			stderr.write(f"\"{args['ARG']}\" apparently not in the data set\n")
+			print_error("\033[1;31m" + f"\"{args['ARG']}\" apparently not in the data set\n" + "\033[0;0m")
 
 
 if __name__ == '__main__':
