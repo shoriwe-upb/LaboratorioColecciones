@@ -5,3 +5,8 @@
 .idea/modules.xml
 .idea/vcs.xml
 .idea/workspace.xml
+__pycache__/laboratory.cpython-37.pyc
+.idea/inspectionProfiles/Project_Default.xml
+.idea/encodings.xml
+custom_methods/__pycache__/__init__.cpython-37.pyc
+custom_methods/__pycache__/temperature_methods.cpython-37.pyc
