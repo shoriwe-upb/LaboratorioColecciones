@@ -39,7 +39,8 @@ class Analisys(object):
     # return the most hot month of every department
     def most_hot(self, no_arg):
         if no_arg:
-            return _default_help_no_args()
+            yield _default_help_no_args(),
+            return
         for key in self._data.keys():
             most_hot_month = max(self._data[key])
             month = self.__ref[self._data[key].index(most_hot_month)]
@@ -69,7 +70,8 @@ class Analisys(object):
     def standard_deviation(self, no_arg):
         # Really i dont know f this is the right formula
         if no_arg:
-            return _default_help_no_args()
+            yield _default_help_no_args(),
+            return
         for key in self._data.keys():
             number_observations = len(self._data[key])
             med = sum(self._data[key]) / number_observations
