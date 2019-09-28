@@ -5,7 +5,6 @@ from sys import stderr
 
 def main():
 	parser = ArgumentParser()
-	print(dir(Analisys))
 	parser.add_argument(
 		'OPTION', help='Option to use', choices=['department_med', 'med_of_most_hot_month_of_departments',
 												 'most_hot', 'most_hot_med', 'most_hot_month_of_year', 'national_med',
