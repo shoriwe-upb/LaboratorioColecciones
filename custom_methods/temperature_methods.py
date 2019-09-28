@@ -25,7 +25,7 @@ class Analisys(object):
         if no_arg:
             return _default_help_no_args()
         else:
-            return sum(self.department_med(key)[1] for key in self.__data.keys()) / len(self.__data.keys())
+            return "National", sum(self.department_med(key)[1] for key in self.__data.keys()) / len(self.__data.keys())
 
     # return the most hot month of every department
     def most_hot(self, no_arg):
@@ -52,7 +52,7 @@ class Analisys(object):
             return "Comma separated names of the departments"
         else:
             departments = departments.split(",")
-            return max((self.department_med(department) for department in departments), key=lambda value: value[1]),
+            return max((self.department_med(department) for department in departments), key=lambda value: value[1])
 
     # Return the department, month, temperature of all the year
     def most_hot_month_of_year(self, no_arg):
@@ -68,4 +68,4 @@ class Analisys(object):
         for key in self.__data.keys():
             number_observations = len(self.__data[key])
             med = sum(self.__data[key]) / number_observations
-            yield key, sum((value - med) ** 2 for value in self.__data[key]) / number_observations - 1
+            yield key, ((sum((value - med) ** 2 for value in self.__data[key]) / number_observations - 1) ** (1/2))
