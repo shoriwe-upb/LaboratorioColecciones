@@ -1,4 +1,4 @@
-from custom_methods.temperature_methods import Analisys
+from custom_functions.temperature_methods import Analisys
 from argparse import ArgumentParser
 from sys import stderr
 
